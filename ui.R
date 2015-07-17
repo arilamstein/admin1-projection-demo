@@ -14,7 +14,8 @@ shinyUI(fluidPage(
     ),
 
     mainPanel(
-      plotOutput("map")
+      plotOutput("map"),
+      tableOutput("regions")
     )
   )
 ))
