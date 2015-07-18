@@ -17,10 +17,11 @@ projections_that_require_input = c("albers", "bicentric", "bonne",
   "rectangular", "simpleconic", "trapezoidal")
 
 projections = setdiff(all_projections, projections_that_require_input)
-print(projections)
+
 shinyUI(fluidPage(
 
   titlePanel("Administrative Level 1 Map and Projection Demo"),
+  div(HTML("By <a href='http://www.arilamstein.com'>Ari Lamstein</a>. Source code <a href='https://github.com/arilamstein/admin1-projection-demo'>here</a>.")),
   sidebarLayout(
     sidebarPanel(
       selectInput("country", "Country", choices=countries, selected="japan"),
