@@ -7,15 +7,17 @@ library(gridExtra)
 
 renderMap = function(country, df, proj)
 {
-  if (proj == "none") {
-    admin1_choropleth(country.name = country, 
-                      df           = df,
-                      num_colors   = 1) 
-  } else {
-    admin1_choropleth(country.name = country, 
-                      df           = df,
-                      num_colors   = 1) + coord_map(proj)
+  title = paste0("Country: ", country, "\nProjection: ", proj)
+  map   = admin1_choropleth(country.name = country, 
+                            df           = df, 
+                            title        = title, 
+                            num_colors   = 1)
+
+  if (proj != "none") {
+    map = map + coord_map(proj)
   }
+  
+  map
 }
 
 shinyServer(function(input, output) {
