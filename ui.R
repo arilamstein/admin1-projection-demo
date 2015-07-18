@@ -2,6 +2,24 @@ library(shiny)
 library(choroplethr)
 library(choroplethrAdmin1)
 
+# albers
+# bicentric
+# bonne
+# conic
+# cylequalarea
+# elliptic
+# fisheye
+# gall
+# harrison
+# homing
+# lambert
+# laue
+# lune
+# newyorker
+# perspective
+# rectangular
+# simpleconic
+
 data(admin1.regions)
 countries = unique(admin1.regions$country)
 projlist = c("none", "aitoff", "albers", "azequalarea", "azequidist", "bicentric",
@@ -18,6 +36,9 @@ shinyUI(fluidPage(
     sidebarPanel(
       selectInput("country", "Country", choices = countries, selected = "japan"),
       selectInput("projection1", "Projection 1", choices=projlist, selected="none"),
+      conditionalPanel(condition = "input.projection1 == 'albers'",
+                      sliderInput("proj1Lat1", "lat1", 0, 180, 90),
+                      sliderInput("proj1Lat2", "lat2", 0, 180, 90)),
       selectInput("projection2", "Projection 2", choices=projlist, selected="mercator")
     ),
 
