@@ -30,7 +30,7 @@ shinyUI(fluidPage(
     ),
 
     mainPanel(
-      plotOutput("maps"),
+      imageOutput("maps"),
       tableOutput("regions")
     )
   )

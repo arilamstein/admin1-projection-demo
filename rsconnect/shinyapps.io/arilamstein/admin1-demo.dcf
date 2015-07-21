@@ -1,0 +1,8 @@
+name: admin1-demo
+account: arilamstein
+server: shinyapps.io
+bundleId: 223345
+url: https://arilamstein.shinyapps.io/admin1-demo
+when: 1437500827.89541
+asMultiple: FALSE
+asStatic: FALSE
