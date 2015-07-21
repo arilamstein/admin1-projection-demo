@@ -21,7 +21,7 @@ projections = setdiff(all_projections, projections_that_require_input)
 shinyUI(fluidPage(
 
   titlePanel("Administrative Level 1 Map and Projection Demo"),
-  div(HTML("By <a href='http://www.arilamstein.com'>Ari Lamstein</a>. Source code <a href='https://github.com/arilamstein/admin1-projection-demo'>here</a>.")),
+  div(HTML("By <a href='http://www.arilamstein.com'>Ari Lamstein</a>. Blog post <a href='http://www.arilamstein.com/blog/2015/07/23/administrative-level-1-maps-and-projections/'>here</a>. Source code <a href='https://github.com/arilamstein/admin1-projection-demo'>here</a>.")),
   sidebarLayout(
     sidebarPanel(
       selectInput("country", "Country", choices=countries, selected="japan"),

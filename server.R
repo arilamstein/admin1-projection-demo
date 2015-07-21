@@ -5,19 +5,25 @@ library(mapproj)
 library(ggplot2)
 library(gridExtra)
 
-renderMap = function(country, df, proj)
+get_base_map = function(country, df)
 {
-  title = paste0("Country: ", country, "\nProjection: ", proj)
-  map   = admin1_choropleth(country.name = country, 
-                            df           = df, 
-                            title        = title, 
-                            num_colors   = 1)
+  admin1_choropleth(country.name = country, 
+                    df           = df,
+                    num_colors   = 1)
+}
 
-  if (proj != "none") {
-    map = map + coord_map(proj)
+get_projection = function(proj)
+{
+  if (proj == "none") {
+    element_blank()
+  } else {
+    coord_map(proj)
   }
-  
-  map
+}
+
+get_title = function(country, proj)
+{
+  ggtitle(paste0("Country: ", country, "\nProjection: ", proj))
 }
 
 shinyServer(function(input, output) {
@@ -25,17 +31,23 @@ shinyServer(function(input, output) {
   # return one country with 2 projections, side by side
   output$maps = renderPlot({
 
+    # add a progress bar
+    progress = shiny::Progress$new()
+    on.exit(progress$close())
+    progress$set(message = "Creating image. Please wait.", value = 0)
+
     data(admin1.regions)
     country = input$country
     regions = unique(admin1.regions[admin1.regions$country == country, "region"])
     df      = data.frame(region=regions, value=1:length(regions))
     
-    map1 = renderMap(country, df, input$projection1)
-    map2 = renderMap(country, df, input$projection2)
+    base_map = get_base_map(country, df)
+    map1 = base_map + get_projection(input$projection1) + get_title(country, input$projection1)
+    map2 = base_map + get_projection(input$projection2) + get_title(country, input$projection2)
     
     grid.arrange(map1, map2, ncol=2)
   })
-
+  
   # return a data.frame listing the Administrative Level 1 regions of the selected country
   output$regions = renderTable({
     data(admin1.regions)
